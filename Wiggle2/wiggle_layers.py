@@ -199,15 +199,16 @@ def update_layer_selection(self, context):
 # --- DATA STRUCTURE ---
 
 class WiggleSimLayer(bpy.types.PropertyGroup):
-    name: bpy.props.StringProperty(name="Layer Name", default="New Layer")
-    action_name: bpy.props.StringProperty(name="Action Data")
+    name: bpy.props.StringProperty(name="Layer Name", default="New Layer", override={'LIBRARY_OVERRIDABLE'})
+    action_name: bpy.props.StringProperty(name="Action Data", override={'LIBRARY_OVERRIDABLE'})
     type: bpy.props.EnumProperty(
         items=[('BASE', "Base (Anim)", ""), ('SIM', "Simulation", "")],
-        name="Type", default='SIM'
+        name="Type", default='SIM',
+        override={'LIBRARY_OVERRIDABLE'}
     )
-    influence: bpy.props.FloatProperty(name="Weight", default=1.0, min=0.0, max=1.0, update=update_layer_params)
-    sim_mix: bpy.props.FloatProperty(name="Sim Mix", default=1.0, min=0.0, max=1.0, update=update_layer_params)
-    mute: bpy.props.BoolProperty(name="Mute", default=False, update=update_layer_params)
+    influence: bpy.props.FloatProperty(name="Weight", default=1.0, min=0.0, max=1.0, update=update_layer_params, override={'LIBRARY_OVERRIDABLE'})
+    sim_mix: bpy.props.FloatProperty(name="Sim Mix", default=1.0, min=0.0, max=1.0, update=update_layer_params, override={'LIBRARY_OVERRIDABLE'})
+    mute: bpy.props.BoolProperty(name="Mute", default=False, update=update_layer_params, override={'LIBRARY_OVERRIDABLE'})
 
 
 # --- UI LIST ---
