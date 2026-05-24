@@ -1,3 +1,9 @@
+if "bpy" in locals():
+    import importlib
+    importlib.reload(wiggle_2)
+    importlib.reload(ui_panel)
+    importlib.reload(physics_logic)
+    importlib.reload(wiggle_layers)
 import bpy
 from . import wiggle_2 
 from . import ui_panel 
