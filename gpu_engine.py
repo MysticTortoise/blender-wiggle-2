@@ -18,17 +18,17 @@ import numpy as np
 # 1. 속성 설정 (Properties)
 # ---------------------------------------------------------
 class WiggleProperties(bpy.types.PropertyGroup):
-    is_active: bpy.props.BoolProperty(name="Active", default=False)
-    use_gpu: bpy.props.BoolProperty(name="Enable GPU Acceleration", default=True)
+    is_active: bpy.props.BoolProperty(name="Active", default=False, override={'LIBRARY_OVERRIDABLE'})
+    use_gpu: bpy.props.BoolProperty(name="Enable GPU Acceleration", default=True, override={'LIBRARY_OVERRIDABLE'})
     
     # 하드웨어 모니터링 정보
-    gpu_card: bpy.props.StringProperty(name="Card", default="Detecting...")
-    api_info: bpy.props.StringProperty(name="API", default="Testing...")
+    gpu_card: bpy.props.StringProperty(name="Card", default="Detecting...", override={'LIBRARY_OVERRIDABLE'})
+    api_info: bpy.props.StringProperty(name="API", default="Testing...", override={'LIBRARY_OVERRIDABLE'})
     
     # 물리 설정
-    speed: bpy.props.FloatProperty(name="Global Speed", default=2.0, min=0.0, max=10.0)
-    swing: bpy.props.FloatProperty(name="Swing Power", default=5.0, min=0.0, max=50.0)
-    stiffness: bpy.props.FloatProperty(name="Stiffness", default=0.3, min=0.0, max=1.0)
+    speed: bpy.props.FloatProperty(name="Global Speed", default=2.0, min=0.0, max=10.0, override={'LIBRARY_OVERRIDABLE'})
+    swing: bpy.props.FloatProperty(name="Swing Power", default=5.0, min=0.0, max=50.0, override={'LIBRARY_OVERRIDABLE'})
+    stiffness: bpy.props.FloatProperty(name="Stiffness", default=0.3, min=0.0, max=1.0, override={'LIBRARY_OVERRIDABLE'})
 
 # ---------------------------------------------------------
 # 2. 초고속 병렬 엔진 (Modal Operator)
@@ -174,7 +174,7 @@ classes = (WiggleProperties, WIGGLE_OT_RunSim, WIGGLE_PT_Panel, WIGGLE_OT_Create
 
 def register():
     for cls in classes: bpy.utils.register_class(cls)
-    bpy.types.Scene.wiggle_props = bpy.props.PointerProperty(type=WiggleProperties)
+    bpy.types.Scene.wiggle_props = bpy.props.PointerProperty(type=WiggleProperties, override={'LIBRARY_OVERRIDABLE'})
 
 def unregister():
     for cls in classes: bpy.utils.unregister_class(cls)

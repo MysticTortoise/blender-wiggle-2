@@ -412,11 +412,11 @@ def register():
     for cls in classes:
         bpy.utils.register_class(cls)
     
-    bpy.types.Object.wiggle_layers = bpy.props.CollectionProperty(type=WiggleSimLayer)
+    bpy.types.Object.wiggle_layers = bpy.props.CollectionProperty(type=WiggleSimLayer, override={"LIBRARY_OVERRIDABLE", "USE_INSERTION"})
     bpy.types.Object.wiggle_layer_index = bpy.props.IntProperty(
-        name="Idx", default=0, update=update_layer_selection
+        name="Idx", default=0, update=update_layer_selection, override={'LIBRARY_OVERRIDABLE'}
     )
-    bpy.types.PoseBone.wiggle_influence = bpy.props.FloatProperty(name="Wiggle Influence", default=0.0)
+    bpy.types.PoseBone.wiggle_influence = bpy.props.FloatProperty(name="Wiggle Influence", default=0.0, override={'LIBRARY_OVERRIDABLE'})
 
     if wiggle_frame_change_handler not in bpy.app.handlers.frame_change_pre:
         bpy.app.handlers.frame_change_pre.append(wiggle_frame_change_handler)
