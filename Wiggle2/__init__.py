@@ -18,13 +18,16 @@ def register():
     bpy.types.PoseBone.wiggle_stiff_use_dist = bpy.props.BoolProperty(
         name="Use Stiff Dist.",
         default=False,
-        description="Enable to use Root-Tip distribution for stiffness; disable to use a single value"
+        description="Enable to use Root-Tip distribution for stiffness; disable to use a single value",
+        override={'LIBRARY_OVERRIDABLE'}
+        
     )
 
     bpy.types.PoseBone.wiggle_damp_use_dist = bpy.props.BoolProperty(
         name="Use Damp Dist.",
         default=False,
-        description="Enable to use Root-Tip distribution for damping; disable to use a single value"
+        description="Enable to use Root-Tip distribution for damping; disable to use a single value",
+        override={'LIBRARY_OVERRIDABLE'}
     )
 
     # 2. Scene Properties for Stiffness (Stiff) Distribution - [원본 유지]
@@ -33,14 +36,16 @@ def register():
         description="Stiffness value at the start (root) of the bone chain",
         default=10.0,
         min=0.0,
-        update=wiggle_taper_callback 
+        update=wiggle_taper_callback,
+        override={'LIBRARY_OVERRIDABLE'}
     )
     bpy.types.Scene.wiggle_stiff_end = bpy.props.FloatProperty(
         name="Stiff Tip",
         description="Stiffness value at the end (tip) of the bone chain",
         default=10.0,
         min=0.0,
-        update=wiggle_taper_callback
+        update=wiggle_taper_callback,
+        override={'LIBRARY_OVERRIDABLE'}
     )
 
     # 3. Scene Properties for Damping (Damp) Distribution - [원본 유지]
@@ -49,21 +54,24 @@ def register():
         description="Damping value at the start (root) of the bone chain",
         default=1.0,
         min=0.0,
-        update=wiggle_damp_callback 
+        update=wiggle_damp_callback,
+        override={'LIBRARY_OVERRIDABLE'}
     )
     bpy.types.Scene.wiggle_damp_end = bpy.props.FloatProperty(
         name="Damp Tip",
         description="Damping value at the end (tip) of the bone chain",
         default=1.0,
         min=0.0,
-        update=wiggle_damp_callback
+        update=wiggle_damp_callback,
+        override={'LIBRARY_OVERRIDABLE'}
     )
 
     # [RTX 추가] GPU 사용 여부를 저장할 속성
     if not hasattr(bpy.types.Scene, "wiggle_use_gpu"):
         bpy.types.Scene.wiggle_use_gpu = bpy.props.BoolProperty(
             name="GPU Active",
-            default=False
+            default=False,
+            override={'LIBRARY_OVERRIDABLE'}
         )
 
     # 4. Register existing modules - [에러 방지 강화 및 레이어 추가]

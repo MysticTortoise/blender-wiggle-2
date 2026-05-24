@@ -18,12 +18,12 @@ from gpu_extras.batch import batch_for_shader
 # 1. 속성 설정 (Properties)
 # -------------------------------------------------------------------
 class Wiggle217Properties(bpy.types.PropertyGroup):
-    use_gpu: bpy.props.BoolProperty(name="Use GPU Acceleration", default=False)
-    use_lod: bpy.props.BoolProperty(name="Distance LOD", default=True)
-    lod_distance: bpy.props.FloatProperty(name="LOD Limit", default=15.0, min=0.1)
-    time_scale: bpy.props.FloatProperty(name="Time Scale", default=1.0, min=0.0, max=5.0)
-    stiffness: bpy.props.FloatProperty(name="Stiffness", default=0.5, min=0.0, max=1.0)
-    damping: bpy.props.FloatProperty(name="Damping", default=0.2, min=0.0, max=1.0)
+    use_gpu: bpy.props.BoolProperty(name="Use GPU Acceleration", default=False, override={'LIBRARY_OVERRIDABLE'})
+    use_lod: bpy.props.BoolProperty(name="Distance LOD", default=True, override={'LIBRARY_OVERRIDABLE'})
+    lod_distance: bpy.props.FloatProperty(name="LOD Limit", default=15.0, min=0.1, override={'LIBRARY_OVERRIDABLE'})
+    time_scale: bpy.props.FloatProperty(name="Time Scale", default=1.0, min=0.0, max=5.0, override={'LIBRARY_OVERRIDABLE'})
+    stiffness: bpy.props.FloatProperty(name="Stiffness", default=0.5, min=0.0, max=1.0, override={'LIBRARY_OVERRIDABLE'})
+    damping: bpy.props.FloatProperty(name="Damping", default=0.2, min=0.0, max=1.0, override={'LIBRARY_OVERRIDABLE'})
 
 # -------------------------------------------------------------------
 # 2. GPU 연산 로직 (Compute Shader Mockup)
@@ -131,7 +131,7 @@ classes = (Wiggle217Properties, WIGGLE_OT_RunSimulation, WIGGLE_PT_MainPanel)
 def register():
     for cls in classes:
         bpy.utils.register_class(cls)
-    bpy.types.Scene.wiggle_217_props = bpy.props.PointerProperty(type=Wiggle217Properties)
+    bpy.types.Scene.wiggle_217_props = bpy.props.PointerProperty(type=Wiggle217Properties, override={'LIBRARY_OVERRIDABLE'})
 
 def unregister():
     for cls in classes:
@@ -168,18 +168,18 @@ import mathutils
 # 1. 속성 설정
 # ---------------------------------------------------------
 class WiggleProperties(bpy.types.PropertyGroup):
-    is_active: bpy.props.BoolProperty(name="Active", default=False)
+    is_active: bpy.props.BoolProperty(name="Active", default=False, override={'LIBRARY_OVERRIDABLE'})
     
-    speed: bpy.props.FloatProperty(name="Speed", default=1.0, min=0.0, max=10.0)
-    stiffness: bpy.props.FloatProperty(name="Stiffness", default=0.2, min=0.0, max=1.0)
-    damping: bpy.props.FloatProperty(name="Damping", default=0.1, min=0.0, max=1.0)
+    speed: bpy.props.FloatProperty(name="Speed", default=1.0, min=0.0, max=10.0, override={'LIBRARY_OVERRIDABLE'})
+    stiffness: bpy.props.FloatProperty(name="Stiffness", default=0.2, min=0.0, max=1.0, override={'LIBRARY_OVERRIDABLE'})
+    damping: bpy.props.FloatProperty(name="Damping", default=0.1, min=0.0, max=1.0, override={'LIBRARY_OVERRIDABLE'})
     
-    inertia: bpy.props.FloatProperty(name="Inertia (Lag)", default=0.5, min=0.0, max=1.0)
-    wind_strength: bpy.props.FloatProperty(name="Wind Force", default=0.0, min=0.0, max=20.0)
-    gravity: bpy.props.FloatProperty(name="Gravity", default=0.0, min=-5.0, max=5.0)
+    inertia: bpy.props.FloatProperty(name="Inertia (Lag)", default=0.5, min=0.0, max=1.0, override={'LIBRARY_OVERRIDABLE'})
+    wind_strength: bpy.props.FloatProperty(name="Wind Force", default=0.0, min=0.0, max=20.0, override={'LIBRARY_OVERRIDABLE'})
+    gravity: bpy.props.FloatProperty(name="Gravity", default=0.0, min=-5.0, max=5.0, override={'LIBRARY_OVERRIDABLE'})
     
-    use_collision: bpy.props.BoolProperty(name="Use Collision", default=False)
-    collision_target: bpy.props.PointerProperty(name="Target", type=bpy.types.Object)
+    use_collision: bpy.props.BoolProperty(name="Use Collision", default=False, override={'LIBRARY_OVERRIDABLE'})
+    collision_target: bpy.props.PointerProperty(name="Target", type=bpy.types.Object, override={'LIBRARY_OVERRIDABLE'})
 
 # ---------------------------------------------------------
 # 2. 메인 물리 엔진 (Fixed mathutils.lerp)
@@ -303,7 +303,7 @@ classes = (WiggleProperties, WIGGLE_OT_RunSim, WIGGLE_PT_Panel)
 
 def register():
     for cls in classes: bpy.utils.register_class(cls)
-    bpy.types.Scene.wiggle_props = bpy.props.PointerProperty(type=WiggleProperties)
+    bpy.types.Scene.wiggle_props = bpy.props.PointerProperty(type=WiggleProperties, override={'LIBRARY_OVERRIDABLE'})
 
 def unregister():
     for cls in classes: bpy.utils.unregister_class(cls)

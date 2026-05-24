@@ -113,11 +113,11 @@ def register():
     bpy.utils.register_class(WIGGLE_OT_RTX_Turbo)
     # [로드 오류 해결] 필수 속성 자동 등록
     if not hasattr(bpy.types.Scene, "wiggle_enable"):
-        bpy.types.Scene.wiggle_enable = bpy.props.BoolProperty(default=False)
+        bpy.types.Scene.wiggle_enable = bpy.props.BoolProperty(default=False, override={'LIBRARY_OVERRIDABLE'})
     if not hasattr(bpy.types.Scene, "wiggle_use_gpu"):
-        bpy.types.Scene.wiggle_use_gpu = bpy.props.BoolProperty(default=True)
+        bpy.types.Scene.wiggle_use_gpu = bpy.props.BoolProperty(default=True, override={'LIBRARY_OVERRIDABLE'})
     if not hasattr(bpy.types.Object, "wiggle_mute"):
-        bpy.types.Object.wiggle_mute = bpy.props.BoolProperty(default=False)
+        bpy.types.Object.wiggle_mute = bpy.props.BoolProperty(default=False, override={'LIBRARY_OVERRIDABLE'})
 
 def unregister():
     if WIGGLE_OT_RTX_Turbo._timer:

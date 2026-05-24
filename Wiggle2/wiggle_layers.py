@@ -230,7 +230,7 @@ class WIGGLE_OT_LayerAction(bpy.types.Operator):
     bl_options = {'REGISTER', 'UNDO'}
     
     action: bpy.props.EnumProperty(
-        items=[('ADD', "Add", ""), ('REMOVE', "Remove", ""), ('UP', "Up", ""), ('DOWN', "Down", "")]
+        items=[('ADD', "Add", ""), ('REMOVE', "Remove", ""), ('UP', "Up", ""), ('DOWN', "Down", "")], override={'LIBRARY_OVERRIDABLE'}
     )
 
     def execute(self, context):

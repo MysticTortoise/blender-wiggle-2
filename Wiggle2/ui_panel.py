@@ -421,49 +421,59 @@ def register():
     # 2. 씬(Scene) 단위 속성 등록
     bpy.types.Scene.wiggle_adaptive_damping = bpy.props.BoolProperty(
         name="Safety Guard", default=True, 
-        description="Automatic Bone Pop Prevention"
+        description="Automatic Bone Pop Prevention",
+        override={'LIBRARY_OVERRIDABLE'}
     )
     bpy.types.Scene.wiggle_safety_threshold = bpy.props.FloatProperty(
         name="Sensitivity", default=1.0, min=0.1, max=10.0, 
-        description="Defense Trigger Sensitivity"
+        description="Defense Trigger Sensitivity",
+        override={'LIBRARY_OVERRIDABLE'}
     )
     bpy.types.Scene.wiggle_use_loop = bpy.props.BoolProperty(
         name="Loop Physics", default=False,
-        description="Transfer physics from the last frame to the first to create a loop"
+        description="Transfer physics from the last frame to the first to create a loop",
+        override={'LIBRARY_OVERRIDABLE'}
     )
     bpy.types.Scene.wiggle_use_gpu = bpy.props.BoolProperty(
-        name="Enable RTX Parallel Engine", default=False
+        name="Enable RTX Parallel Engine", default=False,
+        override={'LIBRARY_OVERRIDABLE'}
     )
     bpy.types.Scene.wiggle_guide_shape = bpy.props.EnumProperty(
         name="Shape", 
         items=[('BOX', "Box", ""), ('CYLINDER', "Cylinder", ""), ('CAPSULE', "Capsule", "")], 
-        default='BOX'
+        default='BOX',
+        override={'LIBRARY_OVERRIDABLE'}
     )
 
     # 3. 본(PoseBone) 단위 속성 등록
     bpy.types.PoseBone.wiggle_influence = bpy.props.FloatProperty(
         name="Sim Mix", default=1.0, min=0.0, max=1.0, 
-        description="애니메이션과 물리 믹스 비율 (0=애니메이션, 1=물리)"
+        description="애니메이션과 물리 믹스 비율 (0=애니메이션, 1=물리)",
+        override={'LIBRARY_OVERRIDABLE'}
     )
     bpy.types.PoseBone.wiggle_use_individual_limits = bpy.props.BoolProperty(
         name="Use Individual Limits", default=False,
-        description="Configure the X-axis and Z-axis limits separately"
+        description="Configure the X-axis and Z-axis limits separately",
+        override={'LIBRARY_OVERRIDABLE'}
     )
     bpy.types.PoseBone.wiggle_angle_limit = bpy.props.FloatProperty(
         name="Angle Limit", default=180.0, min=0.0, max=180.0, precision=1,
-        description="Press Alt + Enter to apply change to the entire skeleton"
+        description="Press Alt + Enter to apply change to the entire skeleton",
+        override={'LIBRARY_OVERRIDABLE'}
     )
     bpy.types.PoseBone.wiggle_limit_x = bpy.props.FloatProperty(
-        name="X Limit", min=0.0, max=180.0, default=90.0, precision=1
+        name="X Limit", min=0.0, max=180.0, default=90.0, precision=1,
+        override={'LIBRARY_OVERRIDABLE'}
     )
     bpy.types.PoseBone.wiggle_limit_z = bpy.props.FloatProperty(
-        name="Z Limit", min=0.0, max=180.0, default=90.0, precision=1
+        name="Z Limit", min=0.0, max=180.0, default=90.0, precision=1,
+        override={'LIBRARY_OVERRIDABLE'}
     )
 
     # 4. [추가] 오브젝트(Object) 단위 속성 등록 (UI 리스트 작동을 위해 필수)
     if hasattr(bpy.types, "WiggleLayerPropGroup"):
-        bpy.types.Object.wiggle_layers = bpy.props.CollectionProperty(type=bpy.types.WiggleLayerPropGroup)
-        bpy.types.Object.wiggle_layer_index = bpy.props.IntProperty(name="Layer Index", default=0)
+        bpy.types.Object.wiggle_layers = bpy.props.CollectionProperty(type=bpy.types.WiggleLayerPropGroup, override={'LIBRARY_OVERRIDABLE', 'USE_INSERTION'})
+        bpy.types.Object.wiggle_layer_index = bpy.props.IntProperty(name="Layer Index", default=0, override={'LIBRARY_OVERRIDABLE'})
 
 def unregister():
     # 1. 클래스 해제

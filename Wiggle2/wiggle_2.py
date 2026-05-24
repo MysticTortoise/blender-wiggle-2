@@ -1376,20 +1376,20 @@ class WiggleBone(bpy.types.PropertyGroup):
     collision_normal_head: bpy.props.FloatVectorProperty(subtype = 'TRANSLATION', override={'LIBRARY_OVERRIDABLE'})
     
 class WiggleObject(bpy.types.PropertyGroup):
-    list: bpy.props.CollectionProperty(type=WiggleItem, override={'LIBRARY_OVERRIDABLE'})
+    list: bpy.props.CollectionProperty(type=WiggleItem, override={'LIBRARY_OVERRIDABLE', 'USE_INSERTION'})
     
 class WiggleScene(bpy.types.PropertyGroup):
     dt: bpy.props.FloatProperty()
     lastframe: bpy.props.IntProperty()
-    iterations: bpy.props.IntProperty(name='Quality', description='Constraint solver interations for chain physics', min=1, default=2, soft_max=10, max=100)
-    loop: bpy.props.BoolProperty(name='Loop Physics', description='Physics continues as timeline loops', default=True)
+    iterations: bpy.props.IntProperty(name='Quality', description='Constraint solver interations for chain physics', min=1, default=2, soft_max=10, max=100, override={'LIBRARY_OVERRIDABLE'})
+    loop: bpy.props.BoolProperty(name='Loop Physics', description='Physics continues as timeline loops', default=True, override={'LIBRARY_OVERRIDABLE'})
     list: bpy.props.CollectionProperty(type=WiggleItem, override={'LIBRARY_OVERRIDABLE','USE_INSERTION'})
-    preroll: bpy.props.IntProperty(name = 'Preroll', description='Frames to run simulation before bake', min=0, default=0)
-    is_preroll: bpy.props.BoolProperty(default=False)
-    bake_overwrite: bpy.props.BoolProperty(name='Overwrite Current Action', description='Bake wiggle into current action, instead of creating a new one', default = False)
-    bake_nla: bpy.props.BoolProperty(name='Current Action to NLA', description='Move existing animation on the armature into an NLA strip', default = False) 
-    is_rendering: bpy.props.BoolProperty(default=False)
-    reset: bpy.props.BoolProperty(default=False)
+    preroll: bpy.props.IntProperty(name = 'Preroll', description='Frames to run simulation before bake', min=0, default=0, override={'LIBRARY_OVERRIDABLE'})
+    is_preroll: bpy.props.BoolProperty(default=False, override={'LIBRARY_OVERRIDABLE'})
+    bake_overwrite: bpy.props.BoolProperty(name='Overwrite Current Action', description='Bake wiggle into current action, instead of creating a new one', default = False, override={'LIBRARY_OVERRIDABLE'})
+    bake_nla: bpy.props.BoolProperty(name='Current Action to NLA', description='Move existing animation on the armature into an NLA strip', default = False, override={'LIBRARY_OVERRIDABLE'}) 
+    is_rendering: bpy.props.BoolProperty(default=False, override={'LIBRARY_OVERRIDABLE'})
+    reset: bpy.props.BoolProperty(default=False, override={'LIBRARY_OVERRIDABLE'})
 
 def register():
     bpy.types.Scene.wiggle_enable = bpy.props.BoolProperty(
@@ -1475,7 +1475,8 @@ def register():
         default=180.0,
         min=0.0,
         max=180.0,
-        unit='ROTATION'
+        unit='ROTATION',
+        override={'LIBRARY_OVERRIDABLE'}
     )
 
     bpy.types.PoseBone.wiggle_gravity = bpy.props.FloatProperty(
@@ -1608,7 +1609,8 @@ def register():
     if wiggle_load not in h_load: h_load.append(wiggle_load)
     bpy.types.PoseBone.wiggle_use_angle_limit = bpy.props.BoolProperty(
         name="Use Angle Limit",
-        default=False
+        default=False,
+        override={'LIBRARY_OVERRIDABLE'}
     )
 
 def unregister():
