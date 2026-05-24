@@ -269,7 +269,9 @@ class WIGGLE_OT_LayerAction(bpy.types.Operator):
                     use_animated_influence(strip)
 
                 # 3. [추가] 작업대 액션을 비움으로써 NLA가 활성화되게 함
-                obj.animation_data.action = None
+                # Causes error if already using NLA editor -- MysticTortoise
+                if not obj.animation_data.is_property_readonly("action"): 
+                    obj.animation_data.action = None
 
             else:
                 new_l.name = f"Sim_Layer_{layer_count}"
